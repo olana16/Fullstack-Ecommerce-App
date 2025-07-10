@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const productSchema= new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     name:{type:String, require:true},
     description:{type:String, require:true},
     price:{type:Number, require:true},
@@ -14,6 +14,6 @@ const productSchema= new mongoose.Schema({
 
 })
 
-const productModel= mongoose.models.product || mongoose.model("product",productSchema)
+const productModel = mongoose.models.product || mongoose.model("product",productSchema)
 
 export default productModel
