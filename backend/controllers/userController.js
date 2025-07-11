@@ -92,7 +92,27 @@ const registerUser = async (req, res) => {
 
 // Routes for addmin login
 
-const adminLogin = async (req, res) => {
+const adminLogin = async (req, res) => { 
+
+    try {
+        
+    
+    const {email,password} = req.body
+
+    if(email==process.env.EMAIL && password == process.env.PASSWORD){
+        const token = jwt.sign(email+password,process.env.JWT_SECCRETE);
+        res.json({success:true, token})
+    } else {
+        res.json({success:false, message:"invalid credentials"})
+    }
+
+    } catch (error) {
+
+         console.log(error)
+        res.json({success:false,message:error.message})
+
+        
+    }
 
 }
 
