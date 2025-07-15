@@ -11,6 +11,7 @@ import Login from './components/Login'
 import 'react-toastify/dist/ReactToastify.css';
 
 export const backEndUrl = import.meta.env.VITE_BACKEND_URL
+export const currency = "$"
 
 const App = () => {
 
