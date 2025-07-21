@@ -97,6 +97,18 @@ const ShopContextProvider = (props) => {
 
 
 
+        try {
+            if(token){
+                await axios.post(backEndUrl + '/api/cart/update', { itemId, size, quantity }, { headers: { token } })
+            }
+            
+        } catch (error) {
+            toast.error(error.message)
+            
+        }
+
+
+
     }
 
     const getCartAmount = () => {
