@@ -70,7 +70,7 @@ const getCart = async (req, res) => {
       return res.json({ success: false, message: "User not found" });
     }
     let cartData = userData.cartData;
-    res.json({ success: true, cartData });
+    res.json({ success: true, cartData: cartData });
 
   } catch (error) {
     console.log(error);
