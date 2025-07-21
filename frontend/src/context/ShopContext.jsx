@@ -129,11 +129,30 @@ const ShopContextProvider = (props) => {
     }
 
 
+    const getUserCart = async (token) =>{
+        try {
+
+            const response = await axios.post(backEndUrl + '/api/cart/get',{}, { headers: { token } })
+            if (response.data.success) {
+                setCartItem(response.data.cartData)
+            } else {
+                toast.error(response.data.message)
+            }
+            
+        } catch (error) {
+            toast.error(error.message)
+            console.log(error)
+            
+        }
+    }
+
+
     useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
         setToken(storedToken);
     }
+    getUserCart(localStorage.getItem('token'))
 }, []);
 
 
