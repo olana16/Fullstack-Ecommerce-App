@@ -5,6 +5,7 @@ import connectDB from './config/mongodb.js'
 import connectCloudinary from './config/cloudinary.js'
 import userRoute from './route/userRoute.js'
 import productRoute from './route/productRoute.js'
+import cartRouter from './route/cartRoute.js';
 
 //App config
 
