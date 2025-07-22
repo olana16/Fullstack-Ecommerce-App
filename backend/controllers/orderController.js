@@ -1,7 +1,32 @@
+import userModel from "../models/userModel";
 
 
 // place order using cod method
 const placeOrder = async (req, res) => {
+
+    try {
+
+        const {userId, item, amount, address} = req.body;
+
+        const orderData = {
+            userId,
+            item,
+            amount,
+            address,
+            date: Date.now(),
+            paymentMethod: "cod",
+            payment: false
+        }
+
+        const newOrder = await orderModel(orderData)
+        await newOrder.save();
+        await userModel.findByIdAndUpdate(userId,{cartData:{}})
+        
+    } catch (error) {
+        console.log(error)
+        res.json({ success: false, message: error.message })
+        
+    }
 
 
 }
