@@ -45,9 +45,35 @@ for(const items in cartItem){
   }
   }
 }
-console.log(orderItems)
-  
+
+let orderData = {
+  address:formData,
+  items:orderItems,
+  amount:getCartAmount() + delivery_fee
+
+}
+
+switch (method) {
+  case 'cod':
+
+    const response = await axios.post(backEndUrl + '/api/order/place', orderData,{headers:{token}})
+      if(response.data.success){
+        setCartItem({})
+        navigate('/orders')
+      }
+      else{
+        toast.error(response.data.message)
+      }
+    
+    break;
+
+  default:
+    break;
+}
+
+
 } catch (error) {
+
   
 }
 
