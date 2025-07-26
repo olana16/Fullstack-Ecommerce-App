@@ -6,11 +6,11 @@ const placeOrder = async (req, res) => {
 
     try {
 
-        const {userId, item, amount, address} = req.body;
+        const {userId, items, amount, address} = req.body;
 
         const orderData = {
             userId,
-            item,
+            items,
             amount,
             address,
             date: Date.now(),
@@ -18,7 +18,7 @@ const placeOrder = async (req, res) => {
             payment: false
         }
 
-        const newOrder = await orderModel(orderData)
+        const newOrder = await new orderModel(orderData)
         await newOrder.save();
         await userModel.findByIdAndUpdate(userId,{cartData:{}})
         
