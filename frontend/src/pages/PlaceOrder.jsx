@@ -9,7 +9,9 @@ import { toast } from 'react-toastify'
 const PlaceOrder = () => {
 
   const [method, setMethod] = useState('cod')
-  const { navigate, token, backEndUrl, cartItem, setCartItem, getCartAmount, delivery_fee, products } = useContext(ShopContext)
+
+  const { navigate, token, backEndUrl, cartItem, setCartItem, getCartAmount, userId, delivery_fee, products } = useContext(ShopContext)
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -51,7 +53,9 @@ const PlaceOrder = () => {
       let orderData = {
         address: formData,
         items: orderItems,
-        amount: getCartAmount() + delivery_fee
+        amount: getCartAmount() + delivery_fee,
+        userId: userId,
+
 
       }
 
@@ -76,8 +80,8 @@ const PlaceOrder = () => {
 
     } catch (error) {
 
-      console.error("Error placing order:", error);
-
+      console.log(error.message)
+      toast.error(error.message)
 
     }
 
