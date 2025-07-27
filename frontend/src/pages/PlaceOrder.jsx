@@ -41,13 +41,9 @@ const PlaceOrder = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault();
-    console.log('Submit button clicked');
 
     try {
-      if (!userId) {
-        toast.error('User ID is missing. Please log in again.');
-        return;
-      }
+   
 
       let orderItems = [];
 
@@ -67,6 +63,7 @@ const PlaceOrder = () => {
         }
       }
 
+
       if (orderItems.length === 0) {
         toast.error('Your cart is empty.');
         return;
@@ -76,10 +73,8 @@ const PlaceOrder = () => {
         address: formData,
         items: orderItems,
         amount: getCartAmount() + delivery_fee,
-        userId: userId,
       };
 
-      console.log('Sending orderData:', orderData);
 
       switch (method) {
         case 'cod':
@@ -90,7 +85,6 @@ const PlaceOrder = () => {
           );
 
           if (response.data.success) {
-            console.log(response.data);
             setCartItem({});
             navigate('/orders');
           } else {
