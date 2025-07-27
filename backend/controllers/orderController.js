@@ -1,12 +1,14 @@
 import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
+import authUser from "../middleware/auth.js";
 
 // place order using cod method
 const placeOrder = async (req, res) => {
 
     try {
 
-        const {userId, items, amount, address} = req.body;
+        const userId = req.userId; 
+        const {  items, amount, address} = req.body;
 
         const orderData = {
             userId,

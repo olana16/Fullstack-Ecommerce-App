@@ -9,7 +9,7 @@ orderRouter.post("/list",adminAuth, allOrders);
 orderRouter.post("/update", adminAuth, updateOrderStatus);
 
 // payment features
-orderRouter.post("/place", placeOrder);
+orderRouter.post("/place",authUser,placeOrder);
 orderRouter.post("/razorpay", placeOrderRazorpay);
 orderRouter.post("/stripe", placeOrderStripe);
 
