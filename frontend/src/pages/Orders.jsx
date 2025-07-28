@@ -17,10 +17,10 @@ const Orders = () => {
     try {
 
 
-    if (!token) {
+      if (!token) {
 
-      return null
-    }
+        return null
+      }
 
       const response = await axios.post(backEndUrl + '/api/order/userorders', {}, { headers: { token } })
 
@@ -75,6 +75,8 @@ const Orders = () => {
 
                   </div>
                   <p className='mt-2 text-start'>Date: <span className='text-gray-400'>{new Date(item.date).toDateString(item.date)}</span></p>
+                  <p className='mt-2 text-start'>Payment: <span className='text-gray-400'>{item.paymentMethod}</span></p>
+
                 </div>
 
               </div>
