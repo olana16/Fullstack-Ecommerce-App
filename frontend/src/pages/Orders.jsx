@@ -13,14 +13,16 @@ const Orders = () => {
   const loadOrderData = async () => {
 
 
+
+    try {
+
+
     if (!token) {
 
       return null
     }
 
-    try {
-
-      const response = await axios.post(backEndUrl + '/api/order/userOrders', {}, { headers: { token } })
+      const response = await axios.post(backEndUrl + '/api/order/userorders', {}, { headers: { token } })
 
       if (response.data.success) {
         let allOrderItems = []
