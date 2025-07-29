@@ -1,6 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-const Orders = () => {
+const Orders = (token) => {
+
+  const [orders, setOrders] = useState( [])
+
+
+  const fetchAllOrders = async () =>{
+
+
+  }
+
+
+  useEffect(()=>{
+
+    fetchAllOrders()
+
+  },[token])
+
+
   return (
     <div>
         
