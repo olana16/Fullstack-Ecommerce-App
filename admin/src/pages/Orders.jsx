@@ -44,7 +44,7 @@ const Orders = (token) => {
   return (
     <div>
 
-      <h3>Orders page</h3>
+      <h3 className='mt-2'>Orders page</h3>
       <div>
 
         {
