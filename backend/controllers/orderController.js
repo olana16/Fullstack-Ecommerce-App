@@ -25,7 +25,7 @@ const placeOrder = async (req, res) => {
         await newOrder.save();
         await userModel.findByIdAndUpdate(userId, { cartData: {} })
 
-        res.json({ success: true, message: "Order placed successfully"})
+        res.json({ success: true, message: "Order placed successfully" })
 
     } catch (error) {
         console.log(error)
@@ -52,6 +52,17 @@ const placeOrderRazorpay = async (req, res) => {
 
 // All orders data for dmin panel
 const allOrders = async (req, res) => {
+
+    try {
+
+        const orders = await orderModel.find({})
+        res.json({success:true, orders})
+
+    } catch (error) {
+        console.log(error.message)
+        res.json({success:true, message:error.message})
+
+    }
 
 
 }
