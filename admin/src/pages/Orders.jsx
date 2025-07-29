@@ -49,7 +49,8 @@ const Orders = (token) => {
 
         {
           orders.map((order, index) => (
-            <div key={index}>
+            <div className='grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2fr_1fr_1fr_1fr]
+             gap-3 items-start border-2 border-gray-200 p-5 md:p-8 my-3 md:my-4 text-xs sm:text-sm text-gray-700' key={index}>
               <img src={assets.parcel_icon} alt="" />
 
               <div>
