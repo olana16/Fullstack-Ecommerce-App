@@ -46,6 +46,9 @@ const placeOrder = async (req, res) => {
 // place order using stripe method
 const placeOrderStripe = async (req, res) => {
 
+            const { userId, items, amount, address } = req.body;
+
+
 
 }
 
