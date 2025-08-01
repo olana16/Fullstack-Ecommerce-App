@@ -1,6 +1,12 @@
 import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
 import authUser from "../middleware/auth.js";
+import Stripe from "stripe"
+
+
+
+// paymnt initallization
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
 // place order using cod method
 const placeOrder = async (req, res) => {
