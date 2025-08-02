@@ -4,8 +4,8 @@ import authUser from "../middleware/auth.js";
 import Stripe from "stripe"
 
 
-const currency ='USD'
-const deliveryCharge= 10
+const currency = 'USD'
+const deliveryCharge = 10
 
 
 // paymnt initallization
@@ -51,12 +51,12 @@ const placeOrderStripe = async (req, res) => {
 
 
     try {
-        
 
-            const { userId, items, amount, address } = req.body;
-            const {origin} = req.headers;
 
-             const orderData = {
+        const { userId, items, amount, address } = req.body;
+        const { origin } = req.headers;
+
+        const orderData = {
             userId,
             items,
             address,
@@ -67,37 +67,51 @@ const placeOrderStripe = async (req, res) => {
 
         }
 
-          const newOrder = await new orderModel(orderData)
+        const newOrder = await new orderModel(orderData)
         await newOrder.save();
 
-        const line_items = items.map((item)=>(
+        const line_items = items.map((item) => (
             {
-                price_data:{
-                    currency:currency,
-                    product_data:{
-                        name:item.name
+                price_data: {
+                    currency: currency,
+                    product_data: {
+                        name: item.name
                     },
-                    unit_amount:item.price * 100
+                    unit_amount: item.price * 100
                 },
-                quantity:item.quantity
+                quantity: item.quantity
             }
         ))
 
         line_items.push({
 
-             price_data:{
-                    currency:currency,
-                    product_data:{
-                        name:"Delivery fee"
-                    },
-                    unit_amount:deliveryCharge * 100
+            price_data: {
+                currency: currency,
+                product_data: {
+                    name: "Delivery fee"
                 },
-                quantity:1
+                unit_amount: deliveryCharge * 100
+            },
+            quantity: 1
 
         })
 
+        const session = await stripe.checkout.sessions.create({
+            success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
+            cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
+            line_items,
+            mode: "payment",
+
+
+        })
+
+        res.json({ success: true, session_url: session.url })
+
     } catch (error) {
-        
+
+        console.log(error)
+        res.json({ success: false, message: error.message })
+
     }
 
 }
@@ -115,11 +129,11 @@ const allOrders = async (req, res) => {
     try {
 
         const orders = await orderModel.find({})
-        res.json({success:true, orders})
+        res.json({ success: true, orders })
 
     } catch (error) {
         console.log(error.message)
-        res.json({success:false, message:error.message})
+        res.json({ success: false, message: error.message })
 
     }
 
@@ -153,17 +167,17 @@ const updateOrderStatus = async (req, res) => {
 
 
     try {
-        
-        const {orderId, status} = req.body
 
-        await orderModel.findByIdAndUpdate(orderId,{status})
-        res.json({success:true, message:"status updated"})
+        const { orderId, status } = req.body
+
+        await orderModel.findByIdAndUpdate(orderId, { status })
+        res.json({ success: true, message: "status updated" })
 
 
     } catch (error) {
         console.log(error)
-        res.json({success:false, message:error.message})
-        
+        res.json({ success: false, message: error.message })
+
     }
 
 
