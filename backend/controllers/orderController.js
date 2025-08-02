@@ -46,9 +46,27 @@ const placeOrder = async (req, res) => {
 // place order using stripe method
 const placeOrderStripe = async (req, res) => {
 
+
+    try {
+        
+
             const { userId, items, amount, address } = req.body;
+            const {origin} = req.headers;
 
+             const orderData = {
+            userId,
+            items,
+            address,
+            amount,
+            paymentMethod: "COD",
+            payment: false,
+            date: Date.now(),
 
+        }
+
+    } catch (error) {
+        
+    }
 
 }
 
