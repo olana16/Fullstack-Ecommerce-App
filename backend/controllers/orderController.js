@@ -4,6 +4,9 @@ import authUser from "../middleware/auth.js";
 import Stripe from "stripe"
 
 
+const currency ='USD'
+const deliveryCharge= 10
+
 
 // paymnt initallization
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -58,11 +61,40 @@ const placeOrderStripe = async (req, res) => {
             items,
             address,
             amount,
-            paymentMethod: "COD",
+            paymentMethod: "Stripe",
             payment: false,
             date: Date.now(),
 
         }
+
+          const newOrder = await new orderModel(orderData)
+        await newOrder.save();
+
+        const line_items = items.map((item)=>(
+            {
+                price_data:{
+                    currency:currency,
+                    product_data:{
+                        name:item.name
+                    },
+                    unit_amount:item.price * 100
+                },
+                quantity:item.quantity
+            }
+        ))
+
+        line_items.push({
+
+             price_data:{
+                    currency:currency,
+                    product_data:{
+                        name:"Delivery fee"
+                    },
+                    unit_amount:deliveryCharge * 100
+                },
+                quantity:1
+
+        })
 
     } catch (error) {
         
