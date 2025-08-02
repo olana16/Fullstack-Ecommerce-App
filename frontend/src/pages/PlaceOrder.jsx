@@ -93,6 +93,24 @@ const PlaceOrder = () => {
 
           break;
 
+          case 'stripe':
+              const responseStripe = await axios.post(
+            backEndUrl + '/api/order/stripe',
+            orderData,
+            { headers: { token } }
+          );
+
+          if (responseStripe.data.success) {
+            const {session_url} =responseStripe.data
+            window.location.replace(session_url)
+          } else {
+            toast.error(response.data.message);
+          }
+
+            
+
+          break;
+
         default:
           toast.error('Selected payment method not supported yet');
           break;
