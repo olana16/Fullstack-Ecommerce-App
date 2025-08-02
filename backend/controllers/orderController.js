@@ -1,6 +1,5 @@
 import userModel from "../models/userModel.js";
 import orderModel from "../models/orderModel.js";
-import authUser from "../middleware/auth.js";
 import Stripe from "stripe"
 
 
